@@ -38,6 +38,10 @@ namespace BillsApplication.Data
                .Entity<PaymentType>()
                .HasData( EntitiesFromEnum
                .BuildEntityObjectsFromEnum<PaymentTypeEnum>());
+            modelBuilder
+              .Entity<Unit>()
+              .HasData(EntitiesFromEnum
+              .BuildEntityObjectsFromEnum<UnitEnum>());
         }
     }
 }

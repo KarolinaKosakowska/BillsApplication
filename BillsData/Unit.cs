@@ -7,13 +7,7 @@ namespace BillsData
     public class Unit : EnumEntity
     {
 
-    }
-    public enum UnitEnum
-    {
-        Item = 1,
-        Kg = 2,
-        Litr = 3
-    }
+    }   
 }
 
 
