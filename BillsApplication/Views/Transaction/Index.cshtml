@@ -1,0 +1,54 @@
+﻿@model BillsApplication.Models.TransactionForm.TransactionIndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Transactions</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Transaction date</th>
+            <th>Price</th>
+            <th>Payment Type<th>
+                
+            </th>
+            <th><a asp-action="Create" class="btn btn-success btn-lg"><i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TransactionsListingModels)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i style="color: blue;margin-right:10px"class="glyphicon glyphicon-pencil"></i></a>
+                <a asp-action="Details" asp-route-id="@item.Id"><i style="color:gray;margin-right:10px"class="glyphicon glyphicon-menu-hamburger"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><i style="color:red;margin-right:10px" class="glyphicon glyphicon-trash"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
