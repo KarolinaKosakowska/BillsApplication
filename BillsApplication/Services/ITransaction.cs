@@ -22,7 +22,7 @@ namespace BillsApplication
         string GetUnit(int id);
        // string GetAttachment(int id);
 
-        void Add(CreateModel newTransaction);
+        void Add(BillsData.Transaction newTransaction);
         //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);
         //int TotalItems { get; set; }
     }

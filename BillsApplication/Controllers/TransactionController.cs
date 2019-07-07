@@ -20,12 +20,14 @@ namespace BillsApplication.Controllers
         private readonly ITransaction _transactionService;
         private readonly ICategory _categoryService;
         private readonly IPaymentType _paymentTypeService;
+        private readonly IFile _fileService;
 
-        public TransactionController(ITransaction transactionService, ICategory categoryService, IPaymentType paymentTypeService)
+        public TransactionController(ITransaction transactionService, ICategory categoryService, IPaymentType paymentTypeService, IFile fileService)
         {
             _transactionService = transactionService;
             _categoryService = categoryService;
             _paymentTypeService = paymentTypeService;
+            _fileService = fileService;
         }
 
         // GET: Transaction
@@ -88,18 +90,20 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateModel transaction)
-        { 
+        public IActionResult Create(Transaction transaction,File file,TransactionCategory transactionCategory)
+        {
             if (ModelState.IsValid)
             {
                // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 _transactionService.Add(transaction);
+                _fileService.Add(file);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories(); 
             return View(transaction);
+     
         }
     }
 

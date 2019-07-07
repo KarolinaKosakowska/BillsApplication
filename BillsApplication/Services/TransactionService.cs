@@ -21,7 +21,7 @@ namespace BillsApplication
             this.context = context;
         }
 
-        public void Add(CreateModel newTransaction)
+        public void Add(Transaction newTransaction)
         {
             context.Add(newTransaction);
             context.SaveChanges();

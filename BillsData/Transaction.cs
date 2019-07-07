@@ -24,6 +24,7 @@ namespace BillsData
         [Required]
         public decimal Price { get; set; }
         public int? PaymentTypeId { get; set; }
+        [Display(Name = "Transaction category")]
         public virtual TransactionCategory TransactionCategory { get; set; }
         public int UserId { get; set; }
         public virtual AppUser User { get; set; }
