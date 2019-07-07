@@ -13,6 +13,7 @@ using BillsApplication.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BillsData;
+using BillsApplication.Services;
 
 namespace BillsApplication
 {
@@ -43,6 +44,8 @@ namespace BillsApplication
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<ITransaction,TransactionService>();
+            services.AddScoped<ICategory,CategoryService>();
+            services.AddScoped<IPaymentType,PaymentTypeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
