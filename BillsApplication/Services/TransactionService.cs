@@ -97,11 +97,6 @@ namespace BillsApplication
             else return "";
         }
        
-        public SelectList GetTransactionCategories()
-        {
-            var transactionCategories = new SelectList(context.TransactionCategories, "Id", "Name");
-            return transactionCategories;
-
-        }
+        
     }
 }

@@ -10,6 +10,7 @@ using BillsData;
 using BillsApplication.Models.TransactionForm;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using BillsApplication.Services;
 
 namespace BillsApplication.Controllers
 {
@@ -17,10 +18,14 @@ namespace BillsApplication.Controllers
     {
         //private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITransaction _transactionService;
+        private readonly ICategory _categoryService;
+        private readonly IPaymentType _paymentTypeService;
 
-        public TransactionController(ITransaction transactionService)
+        public TransactionController(ITransaction transactionService, ICategory categoryService, IPaymentType paymentTypeService)
         {
             _transactionService = transactionService;
+            _categoryService = categoryService;
+            _paymentTypeService = paymentTypeService;
         }
 
         // GET: Transaction
@@ -73,8 +78,8 @@ namespace BillsApplication.Controllers
         // GET: Transaction/Create
         public IActionResult Create()
         {
-            ViewData["PaymentTypeId"] =_transactionService.GetPaymentTypes();
-            ViewData["TransactionCategoryId"] = _transactionService.GetTransactionCategories();
+            ViewData["PaymentTypeId"] =_paymentTypeService.GetPaymentTypes();
+            ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View();
         }
 
@@ -83,8 +88,8 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Description,TransactionCategoryId,TransactionDate,CreateDate,ModyficationDate,Price,PaymentTypeId")] Transaction transaction)
-        {
+        public IActionResult Create(CreateModel transaction)
+        { 
             if (ModelState.IsValid)
             {
                // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -92,8 +97,8 @@ namespace BillsApplication.Controllers
                 _transactionService.Add(transaction);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PaymentTypeId"] = _transactionService.GetPaymentTypes();
-            ViewData["TransactionCategoryId"] = _transactionService.GetTransactionCategories(); 
+            ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
+            ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories(); 
             return View(transaction);
         }
     }

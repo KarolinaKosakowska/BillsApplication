@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BillsApplication.Services
 {
-    public interface IPaymentType
+    public interface ICategory
     {
-        SelectList GetPaymentTypes();
+       SelectList GetTransactionCategories();
     }
 }

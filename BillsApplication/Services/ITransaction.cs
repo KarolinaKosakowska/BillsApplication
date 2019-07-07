@@ -20,7 +20,6 @@ namespace BillsApplication
         string GetProduct(int id);
         int GetAmout(int id);
         string GetUnit(int id);
-        SelectList GetTransactionCategories();
        // string GetAttachment(int id);
 
         void Add(CreateModel newTransaction);
