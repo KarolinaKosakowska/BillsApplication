@@ -1,4 +1,5 @@
-﻿using BillsData;
+﻿using BillsApplication.Models.TransactionForm;
+using BillsData;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,11 +20,10 @@ namespace BillsApplication
         string GetProduct(int id);
         int GetAmout(int id);
         string GetUnit(int id);
-        SelectList GetPaymentTypes();
         SelectList GetTransactionCategories();
        // string GetAttachment(int id);
 
-        void Add(BillsData.Transaction newTransaction);
+        void Add(CreateModel newTransaction);
         //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);
         //int TotalItems { get; set; }
     }

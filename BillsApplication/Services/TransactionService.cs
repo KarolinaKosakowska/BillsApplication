@@ -1,5 +1,6 @@
 ﻿
 using BillsApplication.Data;
+using BillsApplication.Models.TransactionForm;
 using BillsData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,7 +21,7 @@ namespace BillsApplication
             this.context = context;
         }
 
-        public void Add(Transaction newTransaction)
+        public void Add(CreateModel newTransaction)
         {
             context.Add(newTransaction);
             context.SaveChanges();
@@ -48,21 +49,22 @@ namespace BillsApplication
             }
             else return "";
         }
-        public string GetPaymentType(int id)
-        {
-            if (context.Transactions.Any(a => a.Id == id))
-            {
-                return context.Transactions
-                    .FirstOrDefault(a => a.Id == id).PaymentType.Name.ToString();
-            }
-            else return "";
-        }
+       
         public string GetTransactionTag(int id)
         {
             if (context.Tags.Any(a => a.Id == id))
             {
                 return context.Tags
                     .FirstOrDefault(a => a.Id == id).Name;
+            }
+            else return "";
+        }
+        public string GetPaymentType(int id)
+        {
+            if (context.Transactions.Any(a => a.Id == id))
+            {
+                return context.Transactions
+                    .FirstOrDefault(a => a.Id == id).PaymentType.Name.ToString();
             }
             else return "";
         }
@@ -94,11 +96,7 @@ namespace BillsApplication
             }
             else return "";
         }
-        public SelectList GetPaymentTypes()
-        {
-            var paymentTypes = new SelectList(context.PaymentTypes, "Id", "Name");
-            return paymentTypes;
-        }
+       
         public SelectList GetTransactionCategories()
         {
             var transactionCategories = new SelectList(context.TransactionCategories, "Id", "Name");
