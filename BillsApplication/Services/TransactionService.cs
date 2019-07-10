@@ -23,6 +23,7 @@ namespace BillsApplication
 
         public void Add(Transaction newTransaction)
         {
+            newTransaction.CreateDate = DateTime.Now;
             context.Add(newTransaction);
             context.SaveChanges();
         }
@@ -81,6 +82,7 @@ namespace BillsApplication
         }
         public void EditTransaction(Transaction transaction)
         {
+            transaction.ModyficationDate = DateTime.Now;
             context.Update(transaction);
             context.SaveChangesAsync();
         }
@@ -89,12 +91,7 @@ namespace BillsApplication
             var transaction= context.Transactions.Find(id);
             context.Transactions.Remove(transaction);
             context.SaveChangesAsync();
-        }
-        public DateTime SetCreationDate()
-        {
-            return DateTime.Now;
-        }
-
+        }      
 
     }
 }
