@@ -90,6 +90,10 @@ namespace BillsApplication
             context.Transactions.Remove(transaction);
             context.SaveChangesAsync();
         }
+        public DateTime SetCreationDate()
+        {
+            return DateTime.Now;
+        }
 
 
     }

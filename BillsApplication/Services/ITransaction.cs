@@ -20,7 +20,7 @@ namespace BillsApplication
         string GetUnit(int id);
         void DeleteTransaction(int id);
         void EditTransaction(BillsData.Transaction transaction);
-        // string GetAttachment(int id);
+        DateTime SetCreationDate();
 
         void Add(BillsData.Transaction newTransaction);
         //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);

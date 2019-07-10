@@ -67,7 +67,7 @@ namespace BillsApplication.Controllers
                 TransactionDate = asset.TransactionDate,
                 Price = asset.Price,
                 PaymentType = _paymentTypeService.GetPaymentType(id),
-                CreationDate = DateTime.Now,
+                CreationDate = asset.CreateDate,
                 ModyficationDate = asset.ModyficationDate,
                 TransactionTags = _transactionService.GetTransactionTag(id),
                 Product = _transactionService.GetProduct(id),
@@ -80,6 +80,7 @@ namespace BillsApplication.Controllers
         // GET: Transaction/Create
         public IActionResult Create()
         {
+
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View();
@@ -94,8 +95,7 @@ namespace BillsApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+                // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
                 _transactionService.Add(transaction);
                 _fileService.Add(file);
                 return RedirectToAction(nameof(Index));
@@ -106,61 +106,59 @@ namespace BillsApplication.Controllers
 
         }
 
+        // GET: Transaction/Edit/5
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    // GET: Transaction/Edit/5
-        //    public async Task<IActionResult> Edit(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
+            var transaction = _transactionService.GetById(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+            ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
+            ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
+            return View(transaction);
+        }
 
-        //        var transaction = await _context.Transactions.FindAsync(id);
-        //        if (transaction == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        ViewData["TransactionCategoryID"] = new SelectList(_context.TransactionCategories, "ID", "Name", transaction.TransactionCategoryID);
-        //        ViewData["PaymentTypeID"] = new SelectList(_context.PaymentTypes, "ID", "ID", transaction.PaymentTypeID);
-        //        return View(transaction);
-        //    }
+        // POST: Transaction/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,Category,TransactionCategoryId,TransactionDate,CreateDate,ModyficationDate,Price,PaymentTypeId")] Transaction transaction)
+        {
+            if (id != transaction.Id)
+            {
+                return NotFound();
+            }
 
-        //    // POST: Transaction/Edit/5
-        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,Category,TransactionCategoryID,TransactionDate,CreateDate,ModyficationDate,Price,PaymentTypeID")] Transaction transaction)
-        //    {
-        //        if (id != transaction.ID)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                _context.Update(transaction);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if (!TransactionExists(transaction.ID))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        ViewData["TransactionCategoryID"] = new SelectList(_context.TransactionCategories, "ID", "Name", transaction.TransactionCategoryID);
-        //        ViewData["PaymentTypeID"] = new SelectList(_context.PaymentTypes, "ID", "ID", transaction.PaymentTypeID);
-        //        return View(transaction);
-        //    }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _transactionService.EditTransaction(transaction);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TransactionExists(transaction.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
+            ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
+            return View(transaction);
+        }
 
         // GET: Transaction/Delete/5
         public IActionResult Delete(int? id)
@@ -170,7 +168,7 @@ namespace BillsApplication.Controllers
                 return NotFound();
             }
 
-            var transaction =  _transactionService.GetById(id);
+            var transaction = _transactionService.GetById(id);
 
             if (transaction == null)
             {
