@@ -20,5 +20,14 @@ namespace BillsApplication.Services
             var paymentTypes = new SelectList(context.PaymentTypes, "Id", "Name");
             return paymentTypes;
         }
+        public string GetPaymentType(int id)
+        {
+            if (context.Transactions.Any(a => a.Id == id))
+            {
+                return context.Transactions
+                    .FirstOrDefault(a => a.Id == id).PaymentType.Name.ToString();
+            }
+            else return "";
+        }
     }
 }

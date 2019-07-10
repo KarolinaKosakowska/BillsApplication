@@ -21,7 +21,7 @@ namespace BillsApplication.Controllers
         }
 
         // GET: TransactionCategories
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View(_categoryService.GetAll());
         }
@@ -55,7 +55,7 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] TransactionCategory transactionCategory)
+        public IActionResult Create([Bind("Name,Id")] TransactionCategory transactionCategory)
         {
             if (ModelState.IsValid)
             {
@@ -66,14 +66,14 @@ namespace BillsApplication.Controllers
         }
 
         // GET: TransactionCategories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var transactionCategory = await _categoryService.GetAll().FindAsync(id);
+            var transactionCategory =  _categoryService.GetAll().FindAsync(id);
             if (transactionCategory == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id")] TransactionCategory transactionCategory)
+        public IActionResult Edit(int id, [Bind("Name,Id")] TransactionCategory transactionCategory)
         {
             if (id != transactionCategory.Id)
             {
@@ -116,14 +116,14 @@ namespace BillsApplication.Controllers
         }
 
         // GET: TransactionCategories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var transactionCategory = await _categoryService.GetAll()
+            var transactionCategory = _categoryService.GetAll()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (transactionCategory == null)
             {
@@ -136,7 +136,7 @@ namespace BillsApplication.Controllers
         // POST: TransactionCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _categoryService.DeleteCategory(id);
             return RedirectToAction(nameof(Index));

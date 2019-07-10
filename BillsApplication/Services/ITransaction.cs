@@ -13,14 +13,14 @@ namespace BillsApplication
     public interface ITransaction
     {
         IEnumerable<BillsData.Transaction> GetAll();
-        BillsData.Transaction GetById(int id);
-        string GetCategory(int id);
-        string GetPaymentType(int id);
+        BillsData.Transaction GetById(int? id);
         string GetTransactionTag(int id);
         string GetProduct(int id);
         int GetAmout(int id);
         string GetUnit(int id);
-       // string GetAttachment(int id);
+        void DeleteTransaction(int id);
+        void EditTransaction(BillsData.Transaction transaction);
+        // string GetAttachment(int id);
 
         void Add(BillsData.Transaction newTransaction);
         //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);

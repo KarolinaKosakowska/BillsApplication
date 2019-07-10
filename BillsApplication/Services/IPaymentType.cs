@@ -9,5 +9,6 @@ namespace BillsApplication.Services
     public interface IPaymentType
     {
         SelectList GetPaymentTypes();
+        string GetPaymentType(int id);
     }
 }

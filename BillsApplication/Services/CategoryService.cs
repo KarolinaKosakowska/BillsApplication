@@ -31,6 +31,15 @@ namespace BillsApplication.Services
         {
             return context.TransactionCategories;
         }
+        public string GetCategory(int id)
+        {
+            if (context.Transactions.Any(a => a.Id == id))
+            {
+                return context.Transactions
+                    .FirstOrDefault(a => a.Id == id).TransactionCategory.Name;
+            }
+            else return "";
+        }
 
         public void EditCategory(TransactionCategory transactionCategory)
         {

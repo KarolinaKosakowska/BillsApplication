@@ -34,20 +34,11 @@ namespace BillsApplication
                 .Include(asset => asset.PaymentType);
         }
 
-        public Transaction GetById(int id)
+        public Transaction GetById(int? id)
         {
             return
                 GetAll()
                 .FirstOrDefault(asset => asset.Id == id);
-        }
-        public string GetCategory(int id)
-        {
-            if (context.Transactions.Any(a => a.Id == id))
-            {
-                return context.Transactions
-                    .FirstOrDefault(a => a.Id == id).TransactionCategory.Name;
-            }
-            else return "";
         }
        
         public string GetTransactionTag(int id)
@@ -59,15 +50,7 @@ namespace BillsApplication
             }
             else return "";
         }
-        public string GetPaymentType(int id)
-        {
-            if (context.Transactions.Any(a => a.Id == id))
-            {
-                return context.Transactions
-                    .FirstOrDefault(a => a.Id == id).PaymentType.Name.ToString();
-            }
-            else return "";
-        }
+
 
         public string GetProduct(int id)
         {
@@ -96,7 +79,18 @@ namespace BillsApplication
             }
             else return "";
         }
-       
-        
+        public void EditTransaction(Transaction transaction)
+        {
+            context.Update(transaction);
+            context.SaveChangesAsync();
+        }
+        public void DeleteTransaction(int id)
+        {
+            var transaction= context.Transactions.Find(id);
+            context.Transactions.Remove(transaction);
+            context.SaveChangesAsync();
+        }
+
+
     }
 }
