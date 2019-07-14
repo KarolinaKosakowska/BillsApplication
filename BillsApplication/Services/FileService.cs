@@ -17,10 +17,10 @@ namespace BillsApplication.Services
             this.context = context;
         }
 
-        public void Add(File file)
-
+        public void Add(IFormFile formFile)
         {
-            file.Attachment = SetAttachment(file.FormFile);
+            var file = new File();
+            file.Attachment = SetAttachment(formFile);
             context.Add(file);
             context.SaveChangesAsync();
         }

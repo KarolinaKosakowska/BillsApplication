@@ -91,7 +91,7 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Transaction transaction, File file, TransactionCategory transactionCategory)
+        public IActionResult Create(Transaction transaction, IFormFile file, TransactionCategory transactionCategory)
         {
             if (ModelState.IsValid)
             {

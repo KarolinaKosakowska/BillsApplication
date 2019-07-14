@@ -9,7 +9,7 @@ namespace BillsApplication.Services
 {
     public interface IFile
     {
-        void Add(File file);
+        void Add(IFormFile formFile);
         byte[] SetAttachment(IFormFile formFile);
     }
 }
