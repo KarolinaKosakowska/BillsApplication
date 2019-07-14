@@ -47,6 +47,8 @@ namespace BillsApplication
             services.AddScoped<ICategory,CategoryService>();
             services.AddScoped<IPaymentType,PaymentTypeService>();
             services.AddScoped<IFile,FileService>();
+            services.AddScoped<IProduct,ProductService>();
+            services.AddScoped<IUnit,UnitService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

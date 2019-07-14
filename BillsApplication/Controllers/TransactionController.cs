@@ -90,13 +90,13 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Transaction transaction, IFormFile file, TransactionCategory transactionCategory)
+        public IActionResult Create(Transaction transaction, IFormFile files)
         {
             if (ModelState.IsValid)
             {
                 // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
                 _transactionService.Add(transaction);
-                _fileService.Add(file);
+                _fileService.Add(files);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
