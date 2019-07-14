@@ -61,17 +61,16 @@ namespace BillsApplication.Controllers
             var model = new DetailsModel
             {
                 Id = id,
-                TransactionCategory = _categoryService.GetCategory(id),
+                TransactionCategory = asset.TransactionCategory.Name,
                 Name = asset.Name,
                 Description = asset.Description,
                 TransactionDate = asset.TransactionDate,
                 Price = asset.Price,
-                PaymentType = _paymentTypeService.GetPaymentType(id),
+                PaymentType = asset.PaymentType.Name,
                 CreationDate = asset.CreateDate,
                 ModyficationDate = asset.ModyficationDate,
-                TransactionTags = _transactionService.GetTransactionTag(id),
-                Product = _transactionService.GetProduct(id),
-                Amount = _transactionService.GetAmout(id),
+                TransactionTags = string.Join(",",asset.TransactionTags.Select(x=>x.Tag.Name)),
+                Product = string.Join(",",asset.TransactionElements.Select(x=>x.Product.Name + " " + x.Amount))             
 
             };
             return View(model);
