@@ -35,3 +35,9 @@ body {
         display: none;
     }
 }
+
+.productInRow {
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+}

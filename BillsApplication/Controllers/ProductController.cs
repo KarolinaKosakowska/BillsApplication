@@ -66,6 +66,7 @@ namespace BillsApplication.Controllers
             if (ModelState.IsValid)
             {
                 _productService.Add(product);
+                _productService.GetAll();
                 return RedirectToAction(nameof(Index));
             }
            ViewData["Unit"] = _unitService.GetUnits();

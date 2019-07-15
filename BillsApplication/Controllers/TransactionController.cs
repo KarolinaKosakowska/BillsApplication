@@ -70,8 +70,7 @@ namespace BillsApplication.Controllers
                 CreationDate = asset.CreateDate,
                 ModyficationDate = asset.ModyficationDate,
                 TransactionTags = string.Join(",",asset.TransactionTags.Select(x=>x.Tag.Name)),
-                Product = string.Join(",",asset.TransactionElements.Select(x=>x.Product.Name + " " + x.Amount))             
-
+                Product = string.Join(",",asset.TransactionElements.Select(x=>x.Product.Name + " " + x.Amount))
             };
             return View(model);
         }
