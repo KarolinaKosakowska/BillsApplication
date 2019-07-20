@@ -41,17 +41,11 @@ namespace BillsApplication
                 GetAll()
                 .FirstOrDefault(asset => asset.Id == id);
         }
-       
-        public string GetTransactionTag(int id)
+        public SelectList GetTransactions()
         {
-            if (context.Tags.Any(a => a.Id == id))
-            {
-                return context.Tags
-                    .FirstOrDefault(a => a.Id == id).Name;
-            }
-            else return "";
+            var transactions = new SelectList(context.Transactions, "Id", "Name");
+            return transactions;
         }
-
 
         public string GetProduct(int id)
         {

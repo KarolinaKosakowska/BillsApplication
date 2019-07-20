@@ -11,7 +11,6 @@ namespace BillsData
         public string Name { get; set; }
         [Required]
         public string Unit { get; set; }
-
         public virtual ICollection<TransactionElement> TransactionElements { get; set; }
     }
     

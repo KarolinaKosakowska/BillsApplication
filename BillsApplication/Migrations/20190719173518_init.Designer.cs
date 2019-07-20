@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillsApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190714122311_file")]
-    partial class file
+    [Migration("20190719173518_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

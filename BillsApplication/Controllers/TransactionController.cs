@@ -78,7 +78,7 @@ namespace BillsApplication.Controllers
         // GET: Transaction/Create
         public IActionResult Create()
         {
-
+            
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View();
@@ -89,15 +89,16 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Transaction transaction, IFormFile files)
+        public IActionResult Create(Transaction transaction)
         {
             if (ModelState.IsValid)
             {
                 // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
                 _transactionService.Add(transaction);
-                _fileService.Add(files);
+              
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TransactionId"] = _transactionService.GetTransactions();
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View(transaction);

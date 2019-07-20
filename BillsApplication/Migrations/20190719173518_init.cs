@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BillsApplication.Migrations
 {
-    public partial class @enum : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -383,6 +383,17 @@ namespace BillsApplication.Migrations
                     { 2, "Card" },
                     { 3, "BankTransfer" },
                     { 4, "Paypal" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Units",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Item" },
+                    { 2, "Kg" },
+                    { 3, "Litr" },
+                    { 4, "Inch" }
                 });
 
             migrationBuilder.CreateIndex(

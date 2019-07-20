@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BillsApplication.Services
 {
-    public class UnitService: IUnit
+    public class UnitService : IUnit
     {
         private readonly ApplicationDbContext context;
 
@@ -17,7 +17,7 @@ namespace BillsApplication.Services
         }
         public SelectList GetUnits()
         {
-            var units = new SelectList(context.Units, "Id", "Name");
+            var units = new SelectList(context.Units, "Name", "Name");
             return units;
         }
     }

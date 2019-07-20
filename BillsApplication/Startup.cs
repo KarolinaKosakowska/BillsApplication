@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BillsData;
 using BillsApplication.Services;
+using BillsApplication.Services.TransactionElement;
+using BillsApplication.Services.Budget;
 
 namespace BillsApplication
 {
@@ -49,6 +51,8 @@ namespace BillsApplication
             services.AddScoped<IFile,FileService>();
             services.AddScoped<IProduct,ProductService>();
             services.AddScoped<IUnit,UnitService>();
+            services.AddScoped<ITransactionElement,TransactionElementService>();
+            services.AddScoped<IBudget,BudgetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

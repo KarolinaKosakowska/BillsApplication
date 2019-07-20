@@ -8,6 +8,7 @@ namespace BillsData
     {
         [Required]
         public string Name { get; set; }
+        [Display(Name = "Transaction category")]
         public int? TransactionCategoryId { get; set; }
         [Required]
         public int Amount { get; set; }
@@ -16,8 +17,10 @@ namespace BillsData
         [Required]
         public DateTime To { get; set; }
         [Required]
+        [Display(Name = "Create date")]
         public DateTime CreateDate { get; set; }
         [Required]
+        [Display(Name = "Modification date")]
         public DateTime ModyficationDate { get; set; }
         public int UserId { get; set; }
 

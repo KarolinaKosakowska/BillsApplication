@@ -27,6 +27,7 @@ namespace BillsApplication.Services
         {
             return context.Products;
         }
+
         public string GetProduct(int id)
         {
             if (context.Products.Any(a => a.Id == id))
@@ -35,6 +36,11 @@ namespace BillsApplication.Services
                     .FirstOrDefault(a => a.Id == id).Name;
             }
             else return "";
+        }
+        public SelectList GetProducts()
+        {
+            var products= new SelectList(context.Products, "Id", "Name");
+            return products;
         }
 
         //public void EditPro(TransactionCategory transactionCategory)

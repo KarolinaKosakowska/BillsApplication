@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BillsApplication.Services
 {
-   public  interface IUnit
+    public interface IUnit
     {
         SelectList GetUnits();
     }
 }
+

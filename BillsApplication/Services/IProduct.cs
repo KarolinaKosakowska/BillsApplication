@@ -1,4 +1,5 @@
 ﻿using BillsData;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace BillsApplication.Services
 
         DbSet<Product> GetAll();
         string GetProduct(int id);
+        SelectList GetProducts();
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BillsApplication.Data;
 using BillsData;
 using BillsApplication.Services;
+using BillsApplication.Services.TransactionElement;
+using BillsApplication.Models.TransactionForm;
 
 namespace BillsApplication.Controllers
 {
@@ -15,7 +17,6 @@ namespace BillsApplication.Controllers
     {
         private readonly IUnit _unitService;
         private readonly IProduct _productService;
-
         //private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ProductController(IUnit unitService, IProduct productService)
@@ -25,11 +26,13 @@ namespace BillsApplication.Controllers
         }
 
         // GET: Products
+
         public IActionResult Index()
         {
-            return View(_productService.GetAll());
-        }
+            var model = _productService.GetAll(); 
+            return View(model);
 
+        }
 
         //// GET: Products/Details/5
         //public async Task<IActionResult> Details(int? id)
@@ -52,7 +55,7 @@ namespace BillsApplication.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-           ViewData["Unit"] = _unitService.GetUnits();
+            ViewData["Unit"] = _unitService.GetUnits();
             return View();
         }
 
@@ -61,7 +64,7 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product, TransactionElement transactionElement)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +72,8 @@ namespace BillsApplication.Controllers
                 _productService.GetAll();
                 return RedirectToAction(nameof(Index));
             }
-           ViewData["Unit"] = _unitService.GetUnits();
+            ViewData["Unit"] = _unitService.GetUnits();
+
             return View(product);
         }
     }
