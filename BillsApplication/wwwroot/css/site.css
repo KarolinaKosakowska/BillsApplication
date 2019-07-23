@@ -41,3 +41,32 @@ body {
     display:flex;
     justify-content:space-between;
 }
+
+.app-items__container {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+
+.app-item {
+    width: 49%;
+    height: 180px;
+    margin-top: 15px;
+    background-color: purple;
+    border-radius: 20px;
+    color: floralwhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+    .app-item:hover {
+        opacity: 0.6;
+        color: floralwhite;
+        text-decoration: none;
+    }

@@ -26,7 +26,7 @@ namespace BillsApplication.Controllers
         // GET: Budget
         public IActionResult Index()
         {
-            var budget = _budgetService.GetAll().Include(b => b.TransactionCategory);
+            var budget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
             return View(budget);
         }
 

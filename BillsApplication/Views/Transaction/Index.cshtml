@@ -4,9 +4,39 @@
     ViewData["Title"] = "Index";
 }
 
+<h2>Budgets</h2>
+
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>Category </th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th><a asp-controller="Budget" asp-action="Create" class="btn btn-success btn-lg">Budget<i style="color: white;margin-left:10px" class="glyphicon glyphicon-plus"></i></a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Budget)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
 <h2>Transactions</h2>
-
-
 <table class="table">
     <thead>
         <tr>
@@ -19,38 +49,39 @@
             <th>
 
             </th>
-            <th><a asp-action="Create" class="btn btn-success btn-lg">Transaction<i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
-            <th><a asp-controller="Budget" asp-action="Create" class="btn btn-success btn-lg">Budget<i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
+            <th><a asp-action="Create" class="btn btn-success btn-lg">Transaction<i style="color: white;margin-left:10px" class="glyphicon glyphicon-plus"></i></a></th>
+
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model.TransactionsListingModels)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentType)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"><i style="color: blue;margin-right:10px"class="glyphicon glyphicon-pencil"></i></a>
-                <a asp-action="Details" asp-route-id="@item.Id"><i style="color:gray;margin-right:10px"class="glyphicon glyphicon-menu-hamburger"></i></a>
-                <a asp-action="Delete" asp-route-id="@item.Id"><i style="color:red;margin-right:10px" class="glyphicon glyphicon-trash"></i></a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentType)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i style="color: blue;margin-right:10px" class="glyphicon glyphicon-pencil"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i style="color:gray;margin-right:10px" class="glyphicon glyphicon-menu-hamburger"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i style="color:red;margin-right:10px" class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

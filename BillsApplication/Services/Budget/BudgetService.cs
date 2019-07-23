@@ -21,11 +21,12 @@ namespace BillsApplication.Services.Budget
         public void Add(BillsData.Budget budget)
         {
             context.Add(budget);
-            context.SaveChanges();               
+            context.SaveChanges();
         }
+
         public SelectList GetBudgets()
         {
-            var budgets = new SelectList(context.Budgets,"Id", "Amount");
+            var budgets = new SelectList(context.Budgets, "Id", "Amount");
             return budgets;
         }
         public DbSet<BillsData.Budget> GetAll()
@@ -41,6 +42,7 @@ namespace BillsApplication.Services.Budget
             }
             else return "";
         }
+
         public void EditBudget(BillsData.Budget budget)
         {
             context.Update(budget);
@@ -52,5 +54,7 @@ namespace BillsApplication.Services.Budget
             context.Budgets.Remove(budget);
             context.SaveChangesAsync();
         }
+
+   
     }
 }

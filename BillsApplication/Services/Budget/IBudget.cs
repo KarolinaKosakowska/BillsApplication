@@ -10,7 +10,7 @@ namespace BillsApplication.Services.Budget
     public interface IBudget
     {
         void Add(BillsData.Budget budget);
-        SelectList GetBudgets();
+
         DbSet<BillsData.Budget> GetAll();
         string GetBudget(int id);
         void EditBudget(BillsData.Budget budget);

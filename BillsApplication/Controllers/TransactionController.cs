@@ -11,6 +11,7 @@ using BillsApplication.Models.TransactionForm;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using BillsApplication.Services;
+using BillsApplication.Services.Budget;
 
 namespace BillsApplication.Controllers
 {
@@ -20,21 +21,24 @@ namespace BillsApplication.Controllers
         private readonly ITransaction _transactionService;
         private readonly ICategory _categoryService;
         private readonly IPaymentType _paymentTypeService;
-        private readonly IFile _fileService;
+        private readonly IBudget _budgetService;
+        private readonly ApplicationDbContext context;
 
-        public TransactionController(ITransaction transactionService, ICategory categoryService, IPaymentType paymentTypeService, IFile fileService)
+        public TransactionController(ITransaction transactionService, ICategory categoryService,
+            IPaymentType paymentTypeService, IBudget budgetService, ApplicationDbContext context)
         {
             _transactionService = transactionService;
             _categoryService = categoryService;
             _paymentTypeService = paymentTypeService;
-            _fileService = fileService;
+            _budgetService = budgetService;
+            this.context = context;
         }
 
         // GET: Transaction
         public IActionResult Index()
         {
             var assetModels = _transactionService.GetAll();
-            var listingResult = assetModels
+            var resultTransaction = assetModels
                 .Select(result => new TransactionListingModel
                 {
                     Id = result.Id,
@@ -44,12 +48,10 @@ namespace BillsApplication.Controllers
                     TransactionDate = result.TransactionDate,
                     Price = result.Price,
                     PaymentType = _paymentTypeService.GetPaymentType(result.Id)
-
                 });
-            var model = new TransactionIndexModel()
-            {
-                TransactionsListingModels = listingResult
-            };
+            var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
+
+            var model= new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget};
             return View(model);
         }
 
@@ -61,16 +63,14 @@ namespace BillsApplication.Controllers
             var model = new DetailsModel
             {
                 Id = id,
-                TransactionCategory = asset.TransactionCategory.Name,
-                Name = asset.Name,
                 Description = asset.Description,
                 TransactionDate = asset.TransactionDate,
                 Price = asset.Price,
                 PaymentType = asset.PaymentType.Name,
                 CreationDate = asset.CreateDate,
                 ModyficationDate = asset.ModyficationDate,
-                TransactionTags = string.Join(",",asset.TransactionTags.Select(x=>x.Tag.Name)),
-                Product = string.Join(",",asset.TransactionElements.Select(x=>x.Product.Name + " " + x.Amount))
+                TransactionTags = string.Join(",", asset.TransactionTags.Select(x => x.Tag.Name)),
+                Product = string.Join(",", asset.TransactionElements.Select(x => x.Product.Name + " " + x.Amount))
             };
             return View(model);
         }
@@ -78,7 +78,7 @@ namespace BillsApplication.Controllers
         // GET: Transaction/Create
         public IActionResult Create()
         {
-            
+
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View();
@@ -95,7 +95,7 @@ namespace BillsApplication.Controllers
             {
                 // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
                 _transactionService.Add(transaction);
-              
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TransactionId"] = _transactionService.GetTransactions();

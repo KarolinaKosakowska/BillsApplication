@@ -1,5 +1,8 @@
 ﻿<center>
-    <h1>Bills Application</h1>
-
-    <a asp-action="Index" asp-controller="Transaction" class="btn btn-success">START</a>
+    <div class="app-items__container">
+        <a class="app-item" asp-action="Index" asp-controller="Transaction">START</a>
+        <a class="app-item" asp-area="" asp-controller="Budget" asp-action="Index">Budgets</a>
+        <a class="app-item"asp-area="" asp-controller="Transaction" asp-action="Index">Transactions</a>
+        <a class="app-item"asp-area="" asp-controller="Transactionategory" asp-action="Index">Categories</a>
+    </div>
 </center>
