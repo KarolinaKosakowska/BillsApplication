@@ -51,7 +51,7 @@ namespace BillsApplication.Controllers
                 });
             var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
 
-            var model= new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget};
+            var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget };
             return View(model);
         }
 
@@ -62,6 +62,8 @@ namespace BillsApplication.Controllers
             var asset = _transactionService.GetById(id);
             var model = new DetailsModel
             {
+                TransactionCategory = asset.TransactionCategory.Name,
+                Name = asset.Name,
                 Id = id,
                 Description = asset.Description,
                 TransactionDate = asset.TransactionDate,
@@ -69,9 +71,10 @@ namespace BillsApplication.Controllers
                 PaymentType = asset.PaymentType.Name,
                 CreationDate = asset.CreateDate,
                 ModyficationDate = asset.ModyficationDate,
-                TransactionTags = string.Join(",", asset.TransactionTags.Select(x => x.Tag.Name)),
-                Product = string.Join(",", asset.TransactionElements.Select(x => x.Product.Name + " " + x.Amount))
+                TransactionTags = _transactionService.GetTag(asset.Id).ToList(),
+                Product = _transactionService.GetProduct(asset.Id).ToList()
             };
+          
             return View(model);
         }
 

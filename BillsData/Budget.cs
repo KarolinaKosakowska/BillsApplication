@@ -11,7 +11,8 @@ namespace BillsData
         [Display(Name = "Transaction category")]
         public int? TransactionCategoryId { get; set; }
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
+        public decimal Limit { get; set; }
         [Required]
         public DateTime From { get; set; }
         [Required]

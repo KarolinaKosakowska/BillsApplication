@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillsData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,12 +24,11 @@ namespace BillsApplication.Models.TransactionForm
         [Display(Name = "Modyfication date")]
         public DateTime ModyficationDate { get; set; }
         [Display(Name = "Tags")]
-        public string TransactionTags { get; set; }
-        public string Product { get; set; }
+        public List<char> TransactionTags { get; set; }
+        public List<char> Product { get; set; }
         public int Amount { get; set; }
         public int Unit { get; set; }
-        public string Attachment { get; set; }
-
+        public string Attachment { get; set; }   
 
     }
 }

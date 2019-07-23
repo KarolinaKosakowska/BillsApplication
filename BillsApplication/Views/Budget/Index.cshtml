@@ -14,6 +14,7 @@
         <tr>
             <th>Transaction Category </th>
             <th>Name</th>
+            <th>Limit</th>
             <th>Amount</th>
             <th>From</th>
             <th>To</th>
@@ -30,6 +31,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Limit)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)

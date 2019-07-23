@@ -9,29 +9,32 @@
 
 <table class="table">
     <thead>
-
         <tr>
             <th>Category </th>
-            <th>Name</th>
+            <th>Limit</th>
             <th>Amount</th>
             <th><a asp-controller="Budget" asp-action="Create" class="btn btn-success btn-lg">Budget<i style="color: white;margin-left:10px" class="glyphicon glyphicon-plus"></i></a></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Budget)
+        @foreach (var b in Model.Budget)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => b.TransactionCategory.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => b.Limit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => b.Amount)
+            </td>
+            <td>
+
+                <a asp-area="" asp-controller="Budget" asp-action="Details" asp-route-id="@b.Id"><i style="color:gray;margin-right:10px" class="glyphicon glyphicon-menu-hamburger"></i></a>
+            </td>
+        </tr>
         }
 
     </tbody>

@@ -4,14 +4,16 @@ using BillsApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BillsApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190723173542_bidget limit")]
+    partial class bidgetlimit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +27,7 @@ namespace BillsApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount");
+                    b.Property<int>("Amount");
 
                     b.Property<string>("AppUserId");
 
@@ -33,7 +35,7 @@ namespace BillsApplication.Migrations
 
                     b.Property<DateTime>("From");
 
-                    b.Property<decimal>("Limit");
+                    b.Property<int>("Limit");
 
                     b.Property<DateTime>("ModyficationDate");
 

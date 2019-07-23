@@ -37,9 +37,9 @@ namespace BillsApplication.Controllers
             {
                 return NotFound();
             }
-
             var budget = _budgetService.GetAll()
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(b => b.TransactionCategory)
+                .FirstOrDefault(m => m.Id == id);
             if (budget == null)
             {
                 return NotFound();
@@ -60,11 +60,13 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create( Budget budget)
+        public IActionResult Create( Budget budget,Transaction transaction)
         {
             if (ModelState.IsValid)
             {
+
                 _budgetService.Add(budget);
+                _budgetService.SetBudgetAmount(budget);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -132,7 +134,7 @@ namespace BillsApplication.Controllers
 
             var budget = _budgetService.GetAll()
                 .Include(b => b.TransactionCategory)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefault(m => m.Id == id);
             if (budget == null)
             {
                 return NotFound();

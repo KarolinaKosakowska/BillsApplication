@@ -15,6 +15,6 @@ namespace BillsApplication.Services
         SelectList GetTransactionCategories();
         void EditCategory(TransactionCategory transactionCategory);
         void DeleteCategory(int id);
-        string GetCategory(int id);
+        string GetCategory(int? id);
     }
 }

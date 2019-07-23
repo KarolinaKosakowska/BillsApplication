@@ -26,21 +26,34 @@ namespace BillsApplication.Services.Budget
 
         public SelectList GetBudgets()
         {
-            var budgets = new SelectList(context.Budgets, "Id", "Amount");
+            var budgets = new SelectList(context.Budgets, "Id", "Limit");
             return budgets;
         }
         public DbSet<BillsData.Budget> GetAll()
         {
             return context.Budgets;
         }
-        public string GetBudget(int id)
+        public string GetBudget(int? id)
         {
             if (context.Budgets.Any(a => a.Id == id))
             {
-                return context.Budgets
+                return context.Budgets.Include(asset => asset.TransactionCategory)
                     .FirstOrDefault(a => a.Id == id).Name;
             }
             else return "";
+        }
+        public decimal SetBudgetAmount(BillsData.Budget budget)
+        {
+            if (context.Budgets.Select(b => b.TransactionCategory.Name) == (context.Transactions.Select(b => b.TransactionCategory.Name)))
+            {
+                decimal budgetLimit = Convert.ToDecimal(budget.Limit);
+                decimal transactionElementPrice = Convert.ToDecimal(context.TransactionElements.Select(p=>p.Price));
+                decimal budgetAmount = budgetLimit - transactionElementPrice;
+               return budget.Amount = budgetAmount;
+            
+            }
+            else return 0;
+
         }
 
         public void EditBudget(BillsData.Budget budget)
@@ -55,6 +68,6 @@ namespace BillsApplication.Services.Budget
             context.SaveChangesAsync();
         }
 
-   
+
     }
 }

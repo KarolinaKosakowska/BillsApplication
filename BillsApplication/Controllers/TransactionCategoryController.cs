@@ -27,14 +27,14 @@ namespace BillsApplication.Controllers
         }
 
         // GET: TransactionCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var transactionCategory = await _categoryService.GetAll()
+            var transactionCategory = _categoryService.GetAll()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (transactionCategory == null)
             {

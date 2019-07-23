@@ -47,14 +47,23 @@ namespace BillsApplication
             return transactions;
         }
 
-        public string GetProduct(int id)
+        public List<char> GetProduct(int id)
         {
-            if (context.Products.Any(a => a.Id == id))
+            if (context.Transactions.Any(a => a.Id == id))
             {
-                return context.Products
-                    .FirstOrDefault(a => a.Id == id).Name;
+                return context.TransactionElements
+                    .SelectMany(x => x.Product.Name).ToList();
             }
-            else return "";
+            else return null;
+        }
+        public List<char> GetTag(int id)
+        {
+            if (context.Transactions.Any(a => a.Id == id))
+            {
+                return context.TransactionTags
+                    .SelectMany(x => x.Tag.Name).ToList();
+            }
+            else return null;
         }
         public int GetAmout(int id)
         {

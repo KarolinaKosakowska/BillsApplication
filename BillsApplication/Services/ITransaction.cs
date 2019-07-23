@@ -14,11 +14,12 @@ namespace BillsApplication
     {
         IEnumerable<BillsData.Transaction> GetAll();
         BillsData.Transaction GetById(int? id);
-        string GetProduct(int id);
         int GetAmout(int id);
         string GetUnit(int id);
         void DeleteTransaction(int id);
         void EditTransaction(BillsData.Transaction transaction);
+        List<char> GetProduct(int id);
+        List<char> GetTag(int id);
         SelectList GetTransactions();
 
         void Add(BillsData.Transaction newTransaction);

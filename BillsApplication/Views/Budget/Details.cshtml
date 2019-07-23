@@ -17,6 +17,12 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Limit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Limit)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Amount)
         </dt>
         <dd>
@@ -53,7 +59,7 @@
             @Html.DisplayFor(model => model.UserId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TransactionCategory)
+            @Html.DisplayNameFor(model => model.TransactionCategoryId)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.TransactionCategory.Name)

@@ -31,7 +31,7 @@ namespace BillsApplication.Services
         {
             return context.TransactionCategories;
         }
-        public string GetCategory(int id)
+        public string GetCategory(int? id)
         {
             if (context.Transactions.Any(a => a.Id == id))
             {
