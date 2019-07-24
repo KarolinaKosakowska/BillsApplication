@@ -66,7 +66,7 @@ namespace BillsApplication.Controllers
             {
 
                 _budgetService.Add(budget);
-                _budgetService.SetBudgetAmount(budget);
+                ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
 
                 return RedirectToAction(nameof(Index));
             }

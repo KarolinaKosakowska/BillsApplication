@@ -52,6 +52,7 @@ namespace BillsApplication.Controllers
             var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
 
             var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget };
+            ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
             return View(model);
         }
 

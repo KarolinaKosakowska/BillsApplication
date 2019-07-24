@@ -42,18 +42,14 @@ namespace BillsApplication.Services.Budget
             }
             else return "";
         }
-        public decimal SetBudgetAmount(BillsData.Budget budget)
-        {
-            if (context.Budgets.Select(b => b.TransactionCategory.Name) == (context.Transactions.Select(b => b.TransactionCategory.Name)))
-            {
-                decimal budgetLimit = Convert.ToDecimal(budget.Limit);
-                decimal transactionElementPrice = Convert.ToDecimal(context.TransactionElements.Select(p=>p.Price));
-                decimal budgetAmount = budgetLimit - transactionElementPrice;
-               return budget.Amount = budgetAmount;
-            
-            }
-            else return 0;
-
+        public decimal SetBudgetAmount()
+        {         
+            decimal budgetAmount = Convert.ToDecimal(from a in context.Transactions
+                                                                from b in context.Budgets
+                                                                where a.TransactionCategory.Name == b.TransactionCategory.Name 
+                                                                select  b.Limit-a.Price
+                                                               );
+               return budgetAmount;
         }
 
         public void EditBudget(BillsData.Budget budget)
