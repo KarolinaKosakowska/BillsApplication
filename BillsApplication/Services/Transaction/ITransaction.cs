@@ -22,7 +22,7 @@ namespace BillsApplication
         List<char> GetTag(int id);
         SelectList GetTransactions();
 
-        void Add(BillsData.Transaction newTransaction);
+        void Add(BillsData.Transaction newTransaction, Budget newBudget);
         //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);
         //int TotalItems { get; set; }
     }

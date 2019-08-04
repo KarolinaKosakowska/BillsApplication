@@ -20,6 +20,7 @@ namespace BillsApplication.Services.Budget
 
         public void Add(BillsData.Budget budget)
         {
+            budget.CreateDate = DateTime.Now;
             context.Add(budget);
             context.SaveChanges();
         }
@@ -54,6 +55,7 @@ namespace BillsApplication.Services.Budget
 
         public void EditBudget(BillsData.Budget budget)
         {
+            budget.ModyficationDate = DateTime.Now;
             context.Update(budget);
             context.SaveChangesAsync();
         }

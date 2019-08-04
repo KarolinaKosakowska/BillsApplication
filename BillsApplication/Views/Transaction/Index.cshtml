@@ -13,7 +13,7 @@
             <th>Category </th>
             <th>Limit</th>
             <th>Amount</th>
-            <th><a asp-controller="Budget" asp-action="Create" class="btn btn-success btn-lg">Budget<i style="color: white;margin-left:10px" class="glyphicon glyphicon-plus"></i></a></th>
+            <th><a id=button_add asp-controller="Budget" asp-action="Create" class="btn btn-success btn-sm"><i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
             <th></th>
         </tr>
     </thead>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => b.Limit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => "ViewBag.BudgetAmount")
+                @Html.DisplayFor(modelItem => b.Amount)
             </td>
             <td>
 
@@ -52,7 +52,7 @@
             <th>
 
             </th>
-            <th><a asp-action="Create" class="btn btn-success btn-lg">Transaction<i style="color: white;margin-left:10px" class="glyphicon glyphicon-plus"></i></a></th>
+            <th><a id=button_add asp-action="Create" class="btn btn-success btn-sm"><i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
 
         </tr>
     </thead>

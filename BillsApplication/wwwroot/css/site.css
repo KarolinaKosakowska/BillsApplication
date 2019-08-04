@@ -37,36 +37,60 @@ body {
 }
 
 .productInRow {
-    width:100%;
-    display:flex;
-    justify-content:space-between;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .app-items__container {
-    width: 100%;
+    width: 50%;
     height: auto;
     margin-top: 50px;
     display: flex;
     justify-content: space-between;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 }
 
 .app-item {
     width: 49%;
-    height: 180px;
+    height: 100px;
     margin-top: 15px;
-    background-color: purple;
+    background-color: #f16321;
     border-radius: 20px;
-    color: floralwhite;
+    border: 1px solid #278389;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
 }
 
     .app-item:hover {
-        opacity: 0.6;
-        color: floralwhite;
+        color: #b9dfe1;
         text-decoration: none;
+        background-color: #278389;
     }
+
+#navbar_custom_layout {
+    background-color: #278389;
+    border: none;
+
+}
+#navbar_custom_layout_fontColor {
+    color: #dcf3f5;
+    font-weight:600;
+}
+
+    #navbar_custom_layout_fontColor:hover {
+        color: #ff7700;
+    }
+#navbar_custom_layout_BrandFontColor {
+    color: #ff7700;
+    font-weight: 800;
+    font-size:18px;
+}
+#button_add {
+    background-color: #f16321;
+    border-color: #f16321;
+}

@@ -50,9 +50,8 @@ namespace BillsApplication.Controllers
                     PaymentType = _paymentTypeService.GetPaymentType(result.Id)
                 });
             var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
-
             var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget };
-            ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
+           
             return View(model);
         }
 
@@ -93,12 +92,12 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Transaction transaction)
+        public IActionResult Create(Transaction transaction, Budget budget)
         {
             if (ModelState.IsValid)
             {
                 // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
-                _transactionService.Add(transaction);
+                _transactionService.Add(transaction,budget);
 
                 return RedirectToAction(nameof(Index));
             }

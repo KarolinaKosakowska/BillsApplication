@@ -1,6 +1,7 @@
 ﻿
 using BillsApplication.Data;
 using BillsApplication.Models.TransactionForm;
+using BillsApplication.Services.Budget;
 using BillsData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,16 +16,20 @@ namespace BillsApplication
     public class TransactionService : ITransaction
     {
         private readonly ApplicationDbContext context;
+        private readonly IBudget budgetSevice;
 
-        public TransactionService(ApplicationDbContext context)
+        public TransactionService(ApplicationDbContext context, IBudget budgetSevice )
         {
             this.context = context;
+            this.budgetSevice = budgetSevice;
         }
 
-        public void Add(Transaction newTransaction)
+        public void Add(Transaction newTransaction,Budget newBudget)
         {
             newTransaction.CreateDate = DateTime.Now;
+            newBudget.Amount = budgetSevice.SetBudgetAmount();
             context.Add(newTransaction);
+            context.Add(newBudget);
             context.SaveChanges();
         }
 
