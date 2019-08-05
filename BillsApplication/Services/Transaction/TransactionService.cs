@@ -24,12 +24,14 @@ namespace BillsApplication
             this.budgetSevice = budgetSevice;
         }
 
-        public void Add(Transaction newTransaction,Budget newBudget)
+        public void Add(Transaction newTransaction, Budget budget)
         {
-            newTransaction.CreateDate = DateTime.Now;
-            newBudget.Amount = budgetSevice.SetBudgetAmount();
+            newTransaction.CreateDate = DateTime.Today;
             context.Add(newTransaction);
-            context.Add(newBudget);
+            if (budget.Id == newTransaction.BudgetId)
+            {
+                budget.Amount = budget.Limit - newTransaction.Price;
+            }
             context.SaveChanges();
         }
 

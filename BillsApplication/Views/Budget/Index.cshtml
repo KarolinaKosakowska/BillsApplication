@@ -4,11 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2>Budget</h2>
 <table class="table">
     <thead>
         <tr>
@@ -19,8 +15,9 @@
             <th>From</th>
             <th>To</th>
             <th>Create date</th>
-            <th>Modification date</th>        
-            <th></th>
+            <th>Modification date</th>
+            <th>
+            <th><a id=button_add asp-controller="Budget" asp-action="Create" class="btn btn-success btn-sm"><i style="color: white;" class="glyphicon glyphicon-plus"></i></a></th>
         </tr>
     </thead>
     <tbody>

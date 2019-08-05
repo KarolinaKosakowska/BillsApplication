@@ -16,16 +16,19 @@ namespace BillsApplication.Controllers
     {
         private readonly IBudget _budgetService;
         private readonly ICategory _categoryService;
+        private readonly ApplicationDbContext context;
 
-        public BudgetController(IBudget budgetService, ICategory categoryService)
+        public BudgetController(IBudget budgetService, ICategory categoryService, Data.ApplicationDbContext context)
         {
             _budgetService = budgetService;
             _categoryService = categoryService;
+            this.context = context;
         }
 
         // GET: Budget
         public IActionResult Index()
         {
+
             var budget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
             return View(budget);
         }
@@ -60,14 +63,11 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create( Budget budget,Transaction transaction)
+        public IActionResult Create( Budget budget)
         {
             if (ModelState.IsValid)
-            {
-
+            {   
                 _budgetService.Add(budget);
-                ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
-
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
@@ -75,14 +75,15 @@ namespace BillsApplication.Controllers
         }
 
         // GET: Budget/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var budget = await _budgetService.GetAll().FindAsync(id);
+            var budget = _budgetService.GetAll()
+            .Include(b => b.TransactionCategory)
+            .FirstOrDefault(m => m.Id == id);
             if (budget == null)
             {
                 return NotFound();
@@ -107,6 +108,7 @@ namespace BillsApplication.Controllers
             {
                 try
                 {
+               
                     _budgetService.EditBudget(budget);
                 }
                 catch (DbUpdateConcurrencyException)

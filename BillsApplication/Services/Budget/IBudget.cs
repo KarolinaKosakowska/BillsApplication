@@ -15,6 +15,7 @@ namespace BillsApplication.Services.Budget
         string GetBudget(int? id);
         void EditBudget(BillsData.Budget budget);
         void DeleteBudget(int id);
+        SelectList GetBudgets();
 
     }
 }

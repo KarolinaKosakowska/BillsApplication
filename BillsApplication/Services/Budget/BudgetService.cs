@@ -21,13 +21,15 @@ namespace BillsApplication.Services.Budget
         public void Add(BillsData.Budget budget)
         {
             budget.CreateDate = DateTime.Now;
+            budget.ModyficationDate = DateTime.Now;
             context.Add(budget);
             context.SaveChanges();
         }
 
         public SelectList GetBudgets()
         {
-            var budgets = new SelectList(context.Budgets, "Id", "Limit");
+
+            var budgets = new SelectList(context.Budgets, "Id", "Name");
             return budgets;
         }
         public DbSet<BillsData.Budget> GetAll()
@@ -44,19 +46,21 @@ namespace BillsApplication.Services.Budget
             else return "";
         }
         public decimal SetBudgetAmount()
-        {         
+        {
             decimal budgetAmount = Convert.ToDecimal(from a in context.Transactions
-                                                                from b in context.Budgets
-                                                                where a.TransactionCategory.Name == b.TransactionCategory.Name 
-                                                                select  b.Limit-a.Price
+                                                     from b in context.Budgets
+                                                     where a.BudgetId == b.Id
+                                                     select b.Limit - a.Price
                                                                );
-               return budgetAmount;
+            return budgetAmount;
         }
 
         public void EditBudget(BillsData.Budget budget)
-        {
+        {   
             budget.ModyficationDate = DateTime.Now;
             context.Update(budget);
+           // var createDate = context.Budgets.FirstOrDefault(a => a.Id == id).CreateDate;     
+           // budget.CreateDate = createDate;
             context.SaveChangesAsync();
         }
         public void DeleteBudget(int id)

@@ -12,7 +12,9 @@ namespace BillsApplication.Models.TransactionForm
     {
         //public int Id { get; set; }
         //[Display(Name = "Category")]
-        //public string TransactionCategory{ get; set; }
+        //public string TransactionCategory { get; set; }
+        //public int? TransactionCategoryId { get; set; }
+        //public int? PaymentTypeId { get; set; }
         //public string Name { get; set; }
         //public string Description { get; set; }
         //[Display(Name = "Transaction date")]
@@ -30,6 +32,8 @@ namespace BillsApplication.Models.TransactionForm
         //public int Amount { get; set; }
         //public int Unit { get; set; }
         //public string Attachment { get; set; }
+        //public Budget Budget{ get; set; }
+        //public virtual ICollection<File> Files { get; set; }
 
     }
 }

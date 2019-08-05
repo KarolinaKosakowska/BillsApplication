@@ -81,7 +81,7 @@ namespace BillsApplication.Controllers
         // GET: Transaction/Create
         public IActionResult Create()
         {
-
+            ViewData["BudgetName"] = _budgetService.GetBudgets();
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View();
@@ -97,15 +97,15 @@ namespace BillsApplication.Controllers
             if (ModelState.IsValid)
             {
                 // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
-                _transactionService.Add(transaction,budget);
-
+                
+                _transactionService.Add(transaction, budget);       
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BudgetName"] = _budgetService.GetBudgets();
             ViewData["TransactionId"] = _transactionService.GetTransactions();
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
             return View(transaction);
-
         }
 
         // GET: Transaction/Edit/5
@@ -123,6 +123,7 @@ namespace BillsApplication.Controllers
             }
             ViewData["PaymentTypeId"] = _paymentTypeService.GetPaymentTypes();
             ViewData["TransactionCategoryId"] = _categoryService.GetTransactionCategories();
+
             return View(transaction);
         }
 

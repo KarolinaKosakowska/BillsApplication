@@ -7,6 +7,7 @@ namespace BillsData
     public class Budget:BaseEntity
     {
         [Required]
+
         public string Name { get; set; }
         [Display(Name = "Transaction category")]
         public int? TransactionCategoryId { get; set; }
