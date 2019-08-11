@@ -47,12 +47,22 @@ namespace BillsApplication.Services.Budget
         }
         public decimal SetBudgetAmount()
         {
-            decimal budgetAmount = Convert.ToDecimal(from a in context.Transactions
-                                                     from b in context.Budgets
-                                                     where a.BudgetId == b.Id
-                                                     select b.Limit - a.Price
-                                                               );
-            return budgetAmount;
+            try
+            {
+                decimal budgetAmount = Convert.ToDecimal((from a in context.Transactions
+                                                          from b in context.Budgets
+                                                          where a.TransactionCategory == b.TransactionCategory
+                                                          select b.Limit - a.Price).FirstOrDefault());
+                return budgetAmount;
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+           
+                                                           
+            
         }
 
         public void EditBudget(BillsData.Budget budget)

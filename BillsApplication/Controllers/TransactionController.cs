@@ -50,6 +50,7 @@ namespace BillsApplication.Controllers
                     PaymentType = _paymentTypeService.GetPaymentType(result.Id)
                 });
             var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
+            ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
             var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget };
            
             return View(model);

@@ -20,6 +20,7 @@
     <tbody>
         @foreach (var b in Model.Budget)
         {
+            decimal amount = ViewBag.BudgetAmount;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => b.TransactionCategory.Name)
@@ -28,8 +29,10 @@
                 @Html.DisplayFor(modelItem => b.Limit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => b.Amount)
-            </td>
+                
+                    
+                    @Html.DisplayFor(modelItem => amount)
+                </td>
             <td>
 
                 <a asp-area="" asp-controller="Budget" asp-action="Details" asp-route-id="@b.Id"><i style="color:gray;margin-right:10px" class="glyphicon glyphicon-menu-hamburger"></i></a>
