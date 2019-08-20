@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BillsApplication.Data;
 using BillsData;
 using BillsApplication.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class TransactionCategoryController : Controller
     {
         private readonly ICategory _categoryService;

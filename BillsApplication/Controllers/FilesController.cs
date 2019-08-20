@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BillsApplication.Data;
 using BillsData;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class FilesController : Controller
     {
         private readonly ApplicationDbContext _context;

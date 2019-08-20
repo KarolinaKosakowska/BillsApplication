@@ -12,9 +12,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using BillsApplication.Services;
 using BillsApplication.Services.Budget;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         //private readonly IHttpContextAccessor _httpContextAccessor;
@@ -49,9 +51,8 @@ namespace BillsApplication.Controllers
                     Price = result.Price,
                     PaymentType = _paymentTypeService.GetPaymentType(result.Id)
                 });
-            var resultBudget = _budgetService.GetAll().Include(b => b.TransactionCategory).ToList();
-            ViewData["BudgetAmount"] = _budgetService.SetBudgetAmount();
-            var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, Budget = resultBudget };
+            var resultBudget = _budgetService.SetBudgetAmount();
+            var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, BudgetInTransactionLists= resultBudget };
            
             return View(model);
         }
@@ -93,13 +94,11 @@ namespace BillsApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Transaction transaction, Budget budget)
+        public IActionResult Create(Transaction transaction)
         {
             if (ModelState.IsValid)
             {
-                // transaction.UserID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;              
-                
-                _transactionService.Add(transaction, budget);       
+                _transactionService.Add(transaction);       
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BudgetName"] = _budgetService.GetBudgets();

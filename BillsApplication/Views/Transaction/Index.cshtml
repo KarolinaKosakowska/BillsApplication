@@ -18,12 +18,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var b in Model.Budget)
+        @foreach (var b in Model.BudgetInTransactionLists)
         {
-            decimal amount = ViewBag.BudgetAmount;
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => b.TransactionCategory.Name)
+                @Html.DisplayFor(modelItem => b.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => b.Limit)
@@ -31,7 +30,7 @@
             <td>
                 
                     
-                    @Html.DisplayFor(modelItem => amount)
+                    @Html.DisplayFor(modelItem => b.Amount)
                 </td>
             <td>
 

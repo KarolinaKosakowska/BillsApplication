@@ -9,9 +9,11 @@ using BillsApplication.Data;
 using BillsData;
 using BillsApplication.Services.Budget;
 using BillsApplication.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class BudgetController : Controller
     {
         private readonly IBudget _budgetService;

@@ -10,9 +10,11 @@ using BillsData;
 using BillsApplication.Services;
 using BillsApplication.Services.TransactionElement;
 using BillsApplication.Models.TransactionForm;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IUnit _unitService;

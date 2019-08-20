@@ -27,6 +27,7 @@ namespace BillsApplication.Data
         public DbSet<TransactionCategory> TransactionCategories { get; set; }
         public DbSet<TransactionElement> TransactionElements { get; set; }
         public DbSet<TransactionTag> TransactionTags { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

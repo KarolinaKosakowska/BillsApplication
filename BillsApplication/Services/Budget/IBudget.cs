@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BillsApplication.Models.TransactionForm;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,11 @@ namespace BillsApplication.Services.Budget
     public interface IBudget
     {
         void Add(BillsData.Budget budget);
-        decimal SetBudgetAmount();
-        DbSet<BillsData.Budget> GetAll();
+        IQueryable<BudgetInTransactionList> SetBudgetAmount();
+        IQueryable<BillsData.Budget> GetAll();
         string GetBudget(int? id);
         void EditBudget(BillsData.Budget budget);
         void DeleteBudget(int id);
         SelectList GetBudgets();
-
     }
 }

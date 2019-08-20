@@ -24,9 +24,9 @@ namespace BillsData
         [Required]
         [Display(Name = "Modification date")]
         public DateTime ModyficationDate { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public virtual User User { get; set; }
         public virtual TransactionCategory TransactionCategory { get; set; }
     }
 }

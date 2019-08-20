@@ -28,8 +28,8 @@ namespace BillsData
         public int? PaymentTypeId { get; set; }
         [Display(Name = "Transaction category")]
         public virtual TransactionCategory TransactionCategory { get; set; }
-        public int UserId { get; set; }
-        public virtual AppUser User { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
         [Display(Name = "Payment type")]
         public virtual PaymentType PaymentType { get; set; }
         [Display(Name = "Budget name")]

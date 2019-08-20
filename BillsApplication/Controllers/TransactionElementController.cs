@@ -9,9 +9,11 @@ using BillsApplication.Data;
 using BillsApplication.Services.TransactionElement;
 using BillsData;
 using BillsApplication.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BillsApplication.Controllers
 {
+    [Authorize]
     public class TransactionElementController : Controller
     {
         private readonly ITransactionElement _transactionElementService;

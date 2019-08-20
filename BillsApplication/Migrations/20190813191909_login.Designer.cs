@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BillsApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190804203038_budget")]
-    partial class budget
+    [Migration("20190813191909_login")]
+    partial class login
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,8 +29,6 @@ namespace BillsApplication.Migrations
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<string>("AppUserId");
-
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<DateTime>("From");
@@ -46,17 +44,13 @@ namespace BillsApplication.Migrations
 
                     b.Property<int?>("TransactionCategoryId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("TransactionCategoryId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Budgets");
                 });
@@ -171,9 +165,7 @@ namespace BillsApplication.Migrations
 
                     b.Property<DateTime>("TransactionDate");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -183,7 +175,7 @@ namespace BillsApplication.Migrations
 
                     b.HasIndex("TransactionCategoryId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -197,7 +189,11 @@ namespace BillsApplication.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TransactionCategories");
                 });
@@ -275,6 +271,44 @@ namespace BillsApplication.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BillsData.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -329,9 +363,6 @@ namespace BillsApplication.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -371,8 +402,6 @@ namespace BillsApplication.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -445,26 +474,15 @@ namespace BillsApplication.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BillsData.AppUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("AppUser");
-                });
-
             modelBuilder.Entity("BillsData.Budget", b =>
                 {
-                    b.HasOne("BillsData.AppUser")
-                        .WithMany("Budgets")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("BillsData.TransactionCategory", "TransactionCategory")
                         .WithMany()
                         .HasForeignKey("TransactionCategoryId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
+                    b.HasOne("BillsData.User", "User")
+                        .WithMany("Budgets")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BillsData.File", b =>
@@ -489,9 +507,16 @@ namespace BillsApplication.Migrations
                         .WithMany("Transactions")
                         .HasForeignKey("TransactionCategoryId");
 
-                    b.HasOne("BillsData.AppUser", "User")
+                    b.HasOne("BillsData.User", "User")
                         .WithMany("Transactions")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BillsData.TransactionCategory", b =>
+                {
+                    b.HasOne("BillsData.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BillsData.TransactionElement", b =>

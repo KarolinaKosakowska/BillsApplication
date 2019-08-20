@@ -9,6 +9,6 @@ namespace BillsApplication.Models.TransactionForm
     public class TransactionIndexModel
     {
         public IEnumerable<TransactionListingModel>TransactionsListingModels { get; set; }
-        public IEnumerable<Budget> Budget { get; set; }
+        public IEnumerable<BudgetInTransactionList>BudgetInTransactionLists { get; set; }
     }
 }

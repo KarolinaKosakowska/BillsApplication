@@ -3,12 +3,14 @@ using BillsApplication.Data;
 using BillsApplication.Models.TransactionForm;
 using BillsApplication.Services.Budget;
 using BillsData;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BillsApplication
@@ -17,27 +19,30 @@ namespace BillsApplication
     {
         private readonly ApplicationDbContext context;
         private readonly IBudget budgetSevice;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public TransactionService(ApplicationDbContext context, IBudget budgetSevice )
+        public TransactionService(ApplicationDbContext context, IBudget budgetSevice, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.budgetSevice = budgetSevice;
+            this.httpContextAccessor = httpContextAccessor;
+        }
+        private string GetCurrentUserId()
+        {
+            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
-        public void Add(Transaction newTransaction, Budget budget)
+        public void Add(Transaction newTransaction)
         {
             newTransaction.CreateDate = DateTime.Today;
+            newTransaction.UserId = GetCurrentUserId();
             context.Add(newTransaction);
-            if (budget.Id == newTransaction.BudgetId)
-            {
-                budget.Amount = budget.Limit - newTransaction.Price;
-            }
             context.SaveChanges();
         }
 
         public IEnumerable<Transaction> GetAll()
-        {
-            return context.Transactions
+        {          
+            return context.Transactions.Where(t => t.UserId == GetCurrentUserId())
                 .Include(asset => asset.TransactionCategory)
                 .Include(asset => asset.PaymentType);
         }
@@ -101,7 +106,6 @@ namespace BillsApplication
             var transaction= context.Transactions.Find(id);
             context.Transactions.Remove(transaction);
             context.SaveChangesAsync();
-        }      
-
+        }
     }
 }

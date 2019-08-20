@@ -21,9 +21,6 @@ namespace BillsApplication
         List<char> GetProduct(int id);
         List<char> GetTag(int id);
         SelectList GetTransactions();
-
-        void Add(BillsData.Transaction newTransaction,Budget budget);
-        //Task<List<Transaction>> GetList(int page = 1, int? pageLocalSize = null);
-        //int TotalItems { get; set; }
+        void Add(BillsData.Transaction newTransaction);
     }
 }
