@@ -63,7 +63,8 @@ namespace BillsApplication.Services.Budget
             return context.Transactions.Join(context.Budgets,
                  t => t.BudgetId,
                  b => b.Id,
-                 (t, b) => new BudgetInTransactionList
+                 (t, b) =>
+                 new BudgetInTransactionList
                  {
                      Id = b.Id,
                      Name = b.Name,
@@ -71,6 +72,7 @@ namespace BillsApplication.Services.Budget
                      Amount = b.Limit - t.Price,
                      UserId = b.UserId
                  }).Where(t => t.UserId == GetCurrentUserId());
+
         }
 
         public void EditBudget(BillsData.Budget budget)
@@ -87,7 +89,5 @@ namespace BillsApplication.Services.Budget
             context.Budgets.Remove(budget);
             context.SaveChangesAsync();
         }
-
-
     }
 }

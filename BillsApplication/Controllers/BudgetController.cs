@@ -10,6 +10,7 @@ using BillsData;
 using BillsApplication.Services.Budget;
 using BillsApplication.Services;
 using Microsoft.AspNetCore.Authorization;
+using BillsApplication.Models.TransactionForm;
 
 namespace BillsApplication.Controllers
 {

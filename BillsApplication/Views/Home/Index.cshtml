@@ -1,8 +1,15 @@
-﻿<center>
-    <div class="app-items__container">
-        <a class="app-item" asp-action="Index" asp-controller="Transaction">START</a>
-        <a class="app-item" asp-area="" asp-controller="Budget" asp-action="Index">Budgets</a>
-        <a class="app-item"asp-area="" asp-controller="Transaction" asp-action="Index">Transactions</a>
-        <a class="app-item"asp-area="" asp-controller="Transactionategory" asp-action="Index">Categories</a>
-    </div>
+﻿@using Microsoft.AspNetCore.Identity
+<center>
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <div class="app-items__container">
+            <div class="app-item">
+
+                <a class="app-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="app-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </div>
+        </div>
+    }
 </center>

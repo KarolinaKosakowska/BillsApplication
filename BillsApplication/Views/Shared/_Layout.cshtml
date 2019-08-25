@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,7 +10,7 @@
 
 
     <environment include="Development">
-        <link rel="stylesheet" type="text/css" href="~/css/site.css"/>
+        <link rel="stylesheet" type="text/css" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
     <environment exclude="Development">
@@ -18,42 +21,42 @@
     </environment>
 </head>
 <body>
-   
-    <nav id="navbar_custom_layout" class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a id="navbar_custom_layout_BrandFontColor" asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BillsApplication</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Budget" asp-action="Index">Budgets</a></li>
-                    <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="TransactionCategory" asp-action="Index">Categories</a></li>
-                    <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Transaction" asp-action="Index">Transaction List</a></li>
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <nav id="navbar_custom_layout" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a id="navbar_custom_layout_BrandFontColor" asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BillsApplication</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Budget" asp-action="Index">Budgets</a></li>
+                        <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="TransactionCategory" asp-action="Index">Categories</a></li>
+                        <li><a id="navbar_custom_layout_fontColor" asp-area="" asp-controller="Transaction" asp-action="Index">Transaction List</a></li>
 
-                </ul>
-                <partial name="_LoginPartial" />
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    }
 
     <partial name="_CookieConsentPartial" />
- 
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - BillsApplication</p>
-        </footer>
-    </div>
-
+    <section class="appWrapper">
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+    </section>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

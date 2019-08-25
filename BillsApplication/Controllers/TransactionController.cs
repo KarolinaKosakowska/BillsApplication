@@ -52,6 +52,7 @@ namespace BillsApplication.Controllers
                     PaymentType = _paymentTypeService.GetPaymentType(result.Id)
                 });
             var resultBudget = _budgetService.SetBudgetAmount();
+            context.SaveChanges();
             var model = new TransactionIndexModel { TransactionsListingModels = resultTransaction, BudgetInTransactionLists= resultBudget };
            
             return View(model);
