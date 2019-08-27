@@ -95,8 +95,10 @@ body {
 }
 
     #navbar_custom_layout {
-        background-color: #278389;
-        border: none;
+        background-color: transparent;
+        border:solid;
+        border-color:white;
+
     }
 #navbar_custom_layout_fontColor {
     color: #dcf3f5;
@@ -104,14 +106,29 @@ body {
 }
 
     #navbar_custom_layout_fontColor:hover {
-        color: #ff7700;
+        color: black;
     }
 #navbar_custom_layout_BrandFontColor {
-    color: #ff7700;
+    color: white;
     font-weight: 800;
     font-size:18px;
 }
 #button_add {
     background-color: #f16321;
     border-color: #f16321;
+}
+#link_logout {
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration:none;
+}
+    #link_logout:hover {
+    color: white;
+}
+#link_usermanager {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
 }
